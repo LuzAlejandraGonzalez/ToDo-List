@@ -63,3 +63,14 @@ function showTask(){
         }
     }
 }
+
+function deleteTask(idTask){
+    //remove task from the DOM
+    $("#id-task" + idTask).remove();
+
+    //remove task from the array
+    taskArray.splice(idTask,1);
+
+}
+
+showTask();
