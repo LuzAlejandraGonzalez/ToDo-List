@@ -39,12 +39,12 @@ function showTask(){
     var localTask = localStorage.getItem('taskArray');
 
     //Convert the string data to array of objects.
-    var finalTask = JSON.parse(localTask);
+    taskArray = JSON.parse(localTask);
 
     //iterate over the array and adding task to the DOM.
-    for(i=0; i<finalTask.length; i++){
-        var nameTask = finalTask[i].nameTask;
-        var statusTask = finalTask[i].statusTask;
+    for(i=0; i<taskArray.length; i++){
+        var nameTask = taskArray[i].nameTask;
+        var statusTask = taskArray[i].statusTask;
 
         //Determine if the task is added to the container complete or not complete.
         if(statusTask=='not completed'){
@@ -53,7 +53,7 @@ function showTask(){
             $(".not-completed").append('<div class="task" id = "id-task'+i+'">'+
                                         nameTask+
                                         '<i class="fas fa-trash-alt" onclick="deleteTask('+i+')"></i>'+
-                                        '<i class="fas fa-check"></i>'+
+                                        '<i class="fas fa-check" onclick="checkTask('+i+')"></i>'+
                                         '</div>');
         }else if(statusTask == 'completed'){
             $(".completed").append('<div class="task" id = "id-task'+i+'">'+
@@ -74,3 +74,14 @@ function deleteTask(idTask){
 }
 
 showTask();
+
+function checkTask(idTask){
+    console.log(taskArray);
+    $("#id-task" + idTask).remove();
+    //Change task status to completed.
+    taskArray[idTask].statusTask = "completed";
+    // Save array data as string in localstorage
+    localStorage.setItem('taskArray', JSON.stringify(taskArray));
+    console.log(taskArray);
+    showTask();
+}
